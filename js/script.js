@@ -16,6 +16,8 @@ const message = document.querySelector(".message");
 const playAgain = document.querySelector(".play-again");
 // Create another global variable called word and give it the value of "magnolia". Magnolia is your starting word to test out the game until you fetch words from a hosted file in a later step.
 const word = "magnolia";
+// Create another global variable called guessedLetters with an empty array. This array will contain all the letters the player guesses. 
+const guessedLetters = [];
 
 // Create and name a function to update the paragraph’s innerText for the “words-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code!
 const placeholder = function (word) {
@@ -32,10 +34,45 @@ const placeholder = function (word) {
 // Call the function and pass it the word variable as the argument. You should see 8 circle symbols on the screen, one for each letter in the word “magnolia.” Hint: You’ll need to use an array and then join it back to a string using the .join("") method.
 placeholder(word);
 
+const validate = function (input) {
+    // Use a regular expression to ensure the player inputs a letter. A regular expression literal consists of a pattern enclosed between slashes:
+    const acceptedLetter = /[a-zA-Z]/;
+    if (input.length === 0) {
+        message.innerText = "Did you forget to enter a letter?";
+    } else if (input.length > 1) {
+        message.innerText = "Only one letter, please.";
+    } else if (!input.match(acceptedLetter)) {
+        message.innerText = "Please enter a letter from A to Z.";
+    } else {
+        return input;
+    }
+};
+
+const makeGuess = function (guess) {
+    guess = guess.toUpperCase();
+    if (guessedLetters.includes(guess)) {
+        message.innerText = "You already guessed that letter, silly. Try again.";
+    } else {
+        guessedLetters.push(guess);
+        console.log(guessedLetters);
+    }
+};
+
 guessButton.addEventListener("click", function (e) {
-    // Because we’re working with a form, you want to prevent the default behavior of clicking a button, the form submitting, and then reloading the page. To prevent this reloading behavior, add this line of code at the top of the callback function:
+    // Because we’re working with a form, we want to prevent the default behavior of clicking a button, the form submitting, and then reloading the page. To prevent this reloading behavior, add this line of code at the top of the callback function:
     e.preventDefault();
+    message.innerText = "";
     const guess = input.value;
     console.log(guess);
+    
+
+    const result = validate(guess);
+    console.log(result);
+
+    if (result) {
+        makeGuess(guess);
+    }
+
     input.value = "";
 });
+

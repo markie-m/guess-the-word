@@ -55,6 +55,17 @@ const makeGuess = function (guess) {
     } else {
         guessedLetters.push(guess);
         console.log(guessedLetters);
+        showGuessedLetters();
+    }
+};
+
+const showGuessedLetters = function () {
+    guessed.innerHTML = "";
+
+    for (const letter of guessedLetters) {
+        const li = document.createElement("li");
+        li.innerText = letter;
+        guessed.append(li);
     }
 };
 
@@ -75,4 +86,5 @@ guessButton.addEventListener("click", function (e) {
 
     input.value = "";
 });
+
 

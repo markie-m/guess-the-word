@@ -56,6 +56,7 @@ const makeGuess = function (guess) {
         guessedLetters.push(guess);
         console.log(guessedLetters);
         showGuessedLetters();
+        wordInProgress(guessedLetters);
     }
 };
 
@@ -67,6 +68,27 @@ const showGuessedLetters = function () {
         li.innerText = letter;
         guessed.append(li);
     }
+};
+
+const wordInProgress = function (guessedLetters) {
+    const wordUpper = word.toUpperCase();
+    // create a variable to split the word string into an array so that the letter can appear in the guessedLetters array:
+    const wordArray = wordUpper.split("");
+    
+    const revealWord = [];
+
+    // Check if the wordArray contains any letters from the guessedLetters array.
+    for (const letter of wordArray) {
+        if (guessedLetters.includes(letter)) {
+            // If it does contain any of the letters, update the circle symbol with the correct letter. Hint: You’ll want to create a new array with the updated characters and then use join() to update the empty paragraph where the word in progress will appear.
+            revealWord.push(letter.toUpperCase());
+        } else {
+            revealWord.push("●");
+        }
+    }
+    console.log(revealWord);
+    inProgress.innerText = revealWord.join("");
+    
 };
 
 guessButton.addEventListener("click", function (e) {
@@ -86,5 +108,3 @@ guessButton.addEventListener("click", function (e) {
 
     input.value = "";
 });
-
-

@@ -88,7 +88,18 @@ const wordInProgress = function (guessedLetters) {
     }
     console.log(revealWord);
     inProgress.innerText = revealWord.join("");
-    
+    // At the bottom of the function that updates the word in progress, call this function to check if the player has won.
+    checkIfWin();
+};
+
+// Create and name a function to check if the player successfully guessed the word and won the game. Begin by verifying if their word in progress matches the word they should guess.
+const checkIfWin = function () {
+    // If the player has won, add the “win” class to the empty paragraph where messages appear when they guess the letter. 
+    if (word.toUpperCase() === inProgress.innerText) {
+        message.classList.add("win");
+        // Also, update the paragraph’s contents to:
+        message.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
+    }
 };
 
 guessButton.addEventListener("click", function (e) {

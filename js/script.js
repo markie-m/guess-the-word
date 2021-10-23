@@ -70,7 +70,9 @@ const showGuessedLetters = function () {
     }
 };
 
+// Create and name a function to update the word in progress that accepts the guessedLetters array as a parameter. This function will replace the circle symbols with the correct letters guessed.
 const wordInProgress = function (guessedLetters) {
+    // Create a variable called wordUpper to change the word variable to uppercase. 
     const wordUpper = word.toUpperCase();
     // create a variable to split the word string into an array so that the letter can appear in the guessedLetters array:
     const wordArray = wordUpper.split("");

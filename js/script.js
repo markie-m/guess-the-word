@@ -48,12 +48,18 @@ const validate = function (input) {
     }
 };
 
+// Below the function that checks input, create a new function called makeGuess that accepts a letter as the parameter. 
 const makeGuess = function (guess) {
+    // JavaScript is case sensitive, so it sees uppercase and lowercase letters as different characters. The easiest way to handle case-sensitivity is to convert all letters to one casing. We recommend converting your letter parameter to uppercase. 
     guess = guess.toUpperCase();
+    // Once the letter transforms to uppercase, check to see if your guessedLetters array already contains that letter.
     if (guessedLetters.includes(guess)) {
+        // If the player already guessed the same letter, update the message to inform the player they’ve already guessed that letter and try again. 
         message.innerText = "You already guessed that letter, silly. Try again.";
     } else {
+        // If they haven’t guessed that letter before, add the letter to the guessedLetters array.
         guessedLetters.push(guess);
+        // Log out the guessedLetters array to the console.
         console.log(guessedLetters);
         showGuessedLetters();
         wordInProgress(guessedLetters);

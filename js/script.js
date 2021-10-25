@@ -14,10 +14,13 @@ const span = document.querySelector("span");
 const message = document.querySelector(".message");
 // The hidden button that will appear prompting the player to play again.
 const playAgain = document.querySelector(".play-again");
+
 // Create another global variable called word and give it the value of "magnolia". Magnolia is your starting word to test out the game until you fetch words from a hosted file in a later step.
 const word = "magnolia";
 // Create another global variable called guessedLetters with an empty array. This array will contain all the letters the player guesses. 
 const guessedLetters = [];
+// Create a global variable called remainingGuesses and set it to a value of 8. The value 8 is the maximum number of guesses the player can make. You can decrease or increase this value to make the game harder or easier for the player! 
+let remainingGuesses = 8;
 
 // Create and name a function to update the paragraph’s innerText for the “words-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code!
 const placeholder = function (word) {

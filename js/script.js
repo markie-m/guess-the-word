@@ -16,11 +16,32 @@ const message = document.querySelector(".message");
 const playAgain = document.querySelector(".play-again");
 
 // Create another global variable called word and give it the value of "magnolia". Magnolia is your starting word to test out the game until you fetch words from a hosted file in a later step.
-const word = "magnolia";
+let word = "magnolia";
 // Create another global variable called guessedLetters with an empty array. This array will contain all the letters the player guesses. 
 const guessedLetters = [];
 // Create a global variable called remainingGuesses and set it to a value of 8. The value 8 is the maximum number of guesses the player can make. You can decrease or increase this value to make the game harder or easier for the player! 
 let remainingGuesses = 8;
+
+// Near the top of your file, under the word, guessedLetters, and remainingGuesses global variables, add an async function called getWord() to fetch data from a file at the address below. 
+const getWord = async function () {
+    const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
+    // In the second await statement, use .text() instead of .json() because you’re fetching data from a text file instead of a JSON file. 
+    const words = await response.text();
+    // Log out the result of the second await statement to see what data you retrieved! Don’t forget you’ll need to call getWord() in order to view the result in the console.
+    console.log(words);
+    // You know how to grab a random element from an array, now you’ll grab a random word. To select a random word, you’ll need first to transform the data you fetched into an array. Each word is separated by a newline (line break), so this is the delimiter you’ll use to create the array: 
+    const wordArray = words.split("\n");
+    // Log out your wordArray to see the data.
+    console.log(wordArray);
+    // To grab a random word from the file, create a variable to pull a random index from the wordArray. 
+    const randomIndex = Math.floor(Math.random() * wordArray.length);
+    // Still in the function, pull out a random word from the array and remove any extra whitespace around the word using the trim() method. Reassign the value of the existing word global variable to this new random word. This means you should also now declare the global word variable with let instead of const.
+    word = wordArray[randomIndex].trim();
+    // Call the placeholder function you created previously at the bottom of the function. Pass it in the variable holding your random (and freshly trimmed) word!
+    placeholder(word);
+};
+getWord();
+
 
 // Create and name a function to update the paragraph’s innerText for the “words-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code!
 const placeholder = function (word) {

@@ -56,7 +56,9 @@ const placeholder = function (word) {
     inProgress.innerText = placeholderLetters.join("");
 };
 // Call the function and pass it the word variable as the argument. You should see 8 circle symbols on the screen, one for each letter in the word “magnolia.” Hint: You’ll need to use an array and then join it back to a string using the .join("") method.
-placeholder(word);
+// placeholder(word);
+// Take placeholder(word) from your code’s global space and place it at the bottom of getWord(). In the location the call to placeholder(word) used to be, call getWord() instead.
+getWord();
 
 const validate = function (input) {
     // Use a regular expression to ensure the player inputs a letter. A regular expression literal consists of a pattern enclosed between slashes:

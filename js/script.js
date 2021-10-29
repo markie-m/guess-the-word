@@ -146,6 +146,7 @@ const updateGuessesRemaining = function (guess) {
         // If they have no guesses remaining, update the message to say the game is over and what the word is. 
         message.innerHTML = `Game over. The word was <span class="highlight">${word}</span>.`;
         remaining.innerText = ``;
+        startOver();
     } else if (remainingGuesses === 1) {
         // If they have 1 guess, update the span inside the paragraph where the remaining guesses will display to tell the player they have one guess remaining. 
         span.innerText = `${remainingGuesses} guess`;
@@ -162,6 +163,7 @@ const checkIfWin = function () {
         message.classList.add("win");
         // Also, update the paragraph’s contents to:
         message.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
+        startOver();
     }
 };
 
@@ -182,3 +184,13 @@ guessButton.addEventListener("click", function (e) {
 
     input.value = "";
 });
+
+// At the bottom of the script.js file, create a function called startOver to hide: the Guess button, the paragraph where the remaining guesses will display, and the unordered list where the guessed letters appear. 
+const startOver = function () {
+    guessButton.classList.add("hide");
+    remaining.classList.add("hide");
+    guessed.classList.add("hide");
+
+    // Use the startOver function to show the button to play again.
+    playAgain.classList.remove("hide");
+}; 

@@ -176,18 +176,19 @@ const checkIfWin = function () {
 guessButton.addEventListener("click", function (e) {
     // Because we’re working with a form, we want to prevent the default behavior of clicking a button, the form submitting, and then reloading the page. To prevent this reloading behavior, add this line of code at the top of the callback function:
     e.preventDefault();
+    // Inside the event handler function for the Guess button, empty the text of the message element.
     message.innerText = "";
     const guess = input.value;
     console.log(guess);
     
-
+    // At the bottom of the event handler, call the function you made that checks the input, and pass it the input value as an argument. Save the result of this function call to a variable and log it out to the console.
     const result = validate(guess);
     console.log(result);
 
     if (result) {
         makeGuess(guess);
     }
-
+    // Use the console to check the input. Enter a character other than a letter into the input. Notice how the message updates on the screen!
     input.value = "";
 });
 

@@ -60,16 +60,22 @@ const placeholder = function (word) {
 // Take placeholder(word) from your code’s global space and place it at the bottom of getWord(). In the location the call to placeholder(word) used to be, call getWord() instead.
 getWord();
 
+// Create and name a function that accepts the input value as a parameter. This function’s purpose is to validate the player’s input.
 const validate = function (input) {
     // Use a regular expression to ensure the player inputs a letter. A regular expression literal consists of a pattern enclosed between slashes:
     const acceptedLetter = /[a-zA-Z]/;
+    // Still inside the function, use a conditional block to check for different scenarios. Each condition should have a message directing the player on what to input. 
     if (input.length === 0) {
+        // First, check if the input is empty. 
         message.innerText = "Did you forget to enter a letter?";
     } else if (input.length > 1) {
+        // Then, check if the player has entered more than one letter. 
         message.innerText = "Only one letter, please.";
     } else if (!input.match(acceptedLetter)) {
+        // Finally, check if they’ve entered a character that doesn’t match the regular expression pattern. Hint: You’ll need the .match() method here. 
         message.innerText = "Please enter a letter from A to Z.";
     } else {
+        // If all the other conditions aren’t met, the input is a letter, which is what you’re looking for! Return the input.
         return input;
     }
 };

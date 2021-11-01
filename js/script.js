@@ -43,13 +43,14 @@ const getWord = async function () {
 getWord();
 
 
-// Create and name a function to update the paragraph’s innerText for the “words-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code!
+// Create and name a function to update the paragraph’s innerText for the “word-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code!
 const placeholder = function (word) {
-    // I've created an empty array.
+    // I've created an empty placeholderLetters array to hold the placeholders (●) for the iterable word array.
     const placeholderLetters = [];
-    // I'm using this for...of loop to loop through the placeholderLetters array.
+    // I'm using this for...of loop to iterate through the word array, breaking it into individual letters.
     for (const letter of word) {
         console.log(letter);
+        // The push() method adds one or more elements to the end of the new placeholderLetters array, effectively substituting each letter of the word array with circle symbols.
         placeholderLetters.push("●");
     }
     // The join() method returns an array as a string. The elements will be separated by a specified separator. The default separator is comma (,). join() does not change the original array.
@@ -193,7 +194,7 @@ guessButton.addEventListener("click", function (e) {
 });
 
 // Add a click event listener for the Play Again button. Remove the class of “win” applied to the message element. Empty the message text and the unordered list where the guessed letters appear.
-playAgain.addEventListener("click", function (e) {
+playAgain.addEventListener("click", function () {
     message.classList.remove("win");
     message.innerText = "";
     guessed.innerHTML = "";

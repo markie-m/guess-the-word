@@ -101,6 +101,7 @@ const makeGuess = function (guess) {
     }
 };
 
+// Create and name a function to update the page with the letters the player guesses.
 const showGuessedLetters = function () {
     guessed.innerHTML = "";
 

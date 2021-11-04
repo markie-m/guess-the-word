@@ -83,7 +83,7 @@ const validate = function (input) {
 
 // Below the function that checks input, create a new function called makeGuess that accepts a letter as the parameter. 
 const makeGuess = function (guess) {
-    // JavaScript is case sensitive, so it sees uppercase and lowercase letters as different characters. The easiest way to handle case-sensitivity is to convert all letters to one casing. We recommend converting your letter parameter to uppercase. 
+    // Convert all letters to one casing. We recommend converting your letter parameter to uppercase. 
     guess = guess.toUpperCase();
     // Once the letter transforms to uppercase, check to see if your guessedLetters array already contains that letter.
     if (guessedLetters.includes(guess)) {

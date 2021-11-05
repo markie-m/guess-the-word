@@ -15,21 +15,19 @@ const message = document.querySelector(".message");
 // The hidden button that will appear prompting the player to play again.
 const playAgain = document.querySelector(".play-again");
 
-// Create another global variable called word and give it the value of "magnolia". Magnolia is your starting word to test out the game until you fetch words from a hosted file in a later step.
+// Magnolia is your starting word to test out the game until you fetch words from a hosted file in a later step.
 let word = "magnolia";
-// Create another global variable called guessedLetters with an empty array. This array will contain all the letters the player guesses. 
+// The guessedLetters empty array will contain all the letters the player guesses. 
 const guessedLetters = [];
-// Create a global variable called remainingGuesses and set it to a value of 8. The value 8 is the maximum number of guesses the player can make. You can decrease or increase this value to make the game harder or easier for the player! 
+// The value 8 is the maximum number of guesses the player can make. 
 let remainingGuesses = 8;
 
-// Near the top of your file, under the word, guessedLetters, and remainingGuesses global variables, add an async function called getWord() to fetch data from a file at the address below. 
+// Steps 5.8-5.13: An async function to fetch data from a file at the address below. 
 const getWord = async function () {
     const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
-    // In the second await statement, use .text() instead of .json() because you’re fetching data from a text file instead of a JSON file. 
     const words = await response.text();
-    // Log out the result of the second await statement to see what data you retrieved! Don’t forget you’ll need to call getWord() in order to view the result in the console.
     console.log(words);
-    // You know how to grab a random element from an array, now you’ll grab a random word. To select a random word, you’ll need first to transform the data you fetched into an array. Each word is separated by a newline (line break), so this is the delimiter you’ll use to create the array: 
+    // To select a random word, you’ll need first to transform the data you fetched into an array. Each word is separated by a newline (line break), so this is the delimiter you’ll use to create the array: 
     const wordArray = words.split("\n");
     // Log out your wordArray to see the data.
     console.log(wordArray);
@@ -43,25 +41,21 @@ const getWord = async function () {
 getWord();
 
 
-// Create and name a function to update the paragraph’s innerText for the “word-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code!
+// Steps 2.4-2.5: Create and name a function to update the paragraph’s innerText for the “word-in-progress” element with circle symbols (●) to represent each letter in the word. 
 const placeholder = function (word) {
-    // I've created an empty placeholderLetters array to hold the placeholders (●) for the iterable word array.
     const placeholderLetters = [];
-    // I'm using this for...of loop to iterate through the word array, breaking it into individual letters.
     for (const letter of word) {
         console.log(letter);
-        // The push() method adds one or more elements to the end of the new placeholderLetters array, effectively substituting each letter of the word array with circle symbols.
         placeholderLetters.push("●");
     }
-    // The join() method returns an array as a string. The elements will be separated by a specified separator. The default separator is comma (,). join() does not change the original array.
     inProgress.innerText = placeholderLetters.join("");
 };
-// Call the function and pass it the word variable as the argument. You should see 8 circle symbols on the screen, one for each letter in the word “magnolia.” Hint: You’ll need to use an array and then join it back to a string using the .join("") method.
+// Call the function and pass it the word variable as the argument. 
 // placeholder(word);
 // Take placeholder(word) from your code’s global space and place it at the bottom of getWord(). In the location the call to placeholder(word) used to be, call getWord() instead.
 getWord();
 
-// Create and name a function that accepts the input value as a parameter. This function’s purpose is to validate the player’s input.
+// Steps 3.1-3.4: A function to validate the player’s input.
 const validate = function (input) {
     // Use a regular expression to ensure the player inputs a letter. A regular expression literal consists of a pattern enclosed between slashes:
     const acceptedLetter = /[a-zA-Z]/;
@@ -81,9 +75,8 @@ const validate = function (input) {
     }
 };
 
-// Below the function that checks input, create a new function called makeGuess that accepts a letter as the parameter. 
+// Steps 3.9-3.12: A function to capture player input.
 const makeGuess = function (guess) {
-    // Convert all letters to one casing. We recommend converting your letter parameter to uppercase. 
     guess = guess.toUpperCase();
     // Once the letter transforms to uppercase, check to see if your guessedLetters array already contains that letter.
     if (guessedLetters.includes(guess)) {
@@ -101,6 +94,7 @@ const makeGuess = function (guess) {
     }
 };
 
+// Steps 4.1-4.3: A function to show the guessed letters.
 const showGuessedLetters = function () {
     guessed.innerHTML = "";
 
@@ -111,11 +105,10 @@ const showGuessedLetters = function () {
     }
 };
 
-// Create and name a function to update the word in progress that accepts the guessedLetters array as a parameter. This function will replace the circle symbols with the correct letters guessed.
+// Steps 4.6-4.8: A function to update the word in progress that accepts the guessedLetters array as a parameter. This function replaces the circle symbols with the correct letters guessed.
 const wordInProgress = function (guessedLetters) {
-    // Create a variable called wordUpper to change the word variable to uppercase. 
     const wordUpper = word.toUpperCase();
-    // create a variable to split the word string into an array so that the letter can appear in the guessedLetters array:
+    // Create a variable to split the word string into an array so that the letter can appear in the guessedLetters array:
     const wordArray = wordUpper.split("");
     
     const revealWord = [];
@@ -135,16 +128,13 @@ const wordInProgress = function (guessedLetters) {
     checkIfWin();
 };
 
-// Create and name a new function that will accept the guess input as a parameter. In the code, place this function before the function that checks if the player won.
+// Steps 5.2-5.5: A function that accepts the guess input as a parameter. 
 const updateGuessesRemaining = function (guess) {
-    // In the function, grab the word and make it uppercase. Because the player’s guess is uppercase, making the word they’re guessing uppercase will compare letters with the same casing.
     const upperWord = word.toUpperCase();
-    // Find out if the word contains the guessedLetter. If it doesn’t include the letter from guess, let the player know that the word doesn’t contain the letter and subtract 1 from their remainingGuesses. 
     if (!upperWord.includes(guess)) {
         message.innerText = `Sorry, the word has no ${guess}.`;
         remainingGuesses -= 1;
     } else {
-        // If it does contain a letter, let the player know the letter is in the word.
         message.innerText = `Yay! This word contains the letter ${guess}!`;
     }
 
@@ -163,9 +153,8 @@ const updateGuessesRemaining = function (guess) {
     }
 };
 
-// Create and name a function to check if the player successfully guessed the word and won the game. Begin by verifying if their word in progress matches the word they should guess.
+// Steps 4.11-4.12: A function to check if the player successfully guessed the word and won the game. 
 const checkIfWin = function () {
-    // If the player has won, add the “win” class to the empty paragraph where messages appear when they guess the letter. 
     if (word.toUpperCase() === inProgress.innerText) {
         message.classList.add("win");
         // Also, update the paragraph’s contents to:
@@ -174,8 +163,9 @@ const checkIfWin = function () {
     }
 };
 
+// Steps 2.6-2.8: An event listener for when a player clicks the Guess button. 
 guessButton.addEventListener("click", function (e) {
-    // Because we’re working with a form, we want to prevent the default behavior of clicking a button, the form submitting, and then reloading the page. To prevent this reloading behavior, add this line of code at the top of the callback function:
+    // This line of code prevents the default behavior of clicking a button, the form submitting, and then reloading the page. 
     e.preventDefault();
     // Inside the event handler function for the Guess button, empty the text of the message element.
     message.innerText = "";
@@ -193,7 +183,7 @@ guessButton.addEventListener("click", function (e) {
     input.value = "";
 });
 
-// Add a click event listener for the Play Again button. Remove the class of “win” applied to the message element. Empty the message text and the unordered list where the guessed letters appear.
+// Steps 6.4-6.7: A click event listener for the Play Again button. 
 playAgain.addEventListener("click", function () {
     message.classList.remove("win");
     message.innerText = "";
@@ -211,7 +201,7 @@ playAgain.addEventListener("click", function () {
     getWord();
 });
 
-// At the bottom of the script.js file, create a function called startOver to hide: the Guess button, the paragraph where the remaining guesses will display, and the unordered list where the guessed letters appear. 
+// Steps 6.1-6.2: A function to reset the game. 
 const startOver = function () {
     guessButton.classList.add("hide");
     remaining.classList.add("hide");

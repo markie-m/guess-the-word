@@ -22,7 +22,7 @@ const guessedLetters = [];
 // Create a global variable called remainingGuesses and set it to a value of 8. The value 8 is the maximum number of guesses the player can make. You can decrease or increase this value to make the game harder or easier for the player! 
 let remainingGuesses = 8;
 
-// Near the top of your file, under the word, guessedLetters, and remainingGuesses global variables, add an async function called getWord() to fetch data from a file at the address below. 
+// Steps 5.8-5.13: Near the top of your file, under the word, guessedLetters, and remainingGuesses global variables, add an async function called getWord() to fetch data from a file at the address below. 
 const getWord = async function () {
     const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
     // In the second await statement, use .text() instead of .json() because you’re fetching data from a text file instead of a JSON file. 
@@ -43,7 +43,7 @@ const getWord = async function () {
 getWord();
 
 
-// Create and name a function to update the paragraph’s innerText for the “word-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code!
+// Steps 2.4-2.5: Create and name a function to update the paragraph’s innerText for the “word-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code!
 const placeholder = function (word) {
     // I've created an empty placeholderLetters array to hold the placeholders (●) for the iterable word array.
     const placeholderLetters = [];
@@ -61,7 +61,7 @@ const placeholder = function (word) {
 // Take placeholder(word) from your code’s global space and place it at the bottom of getWord(). In the location the call to placeholder(word) used to be, call getWord() instead.
 getWord();
 
-// Create and name a function that accepts the input value as a parameter. This function’s purpose is to validate the player’s input.
+// Steps 3.1-3.4: Create and name a function that accepts the input value as a parameter. This function’s purpose is to validate the player’s input.
 const validate = function (input) {
     // Use a regular expression to ensure the player inputs a letter. A regular expression literal consists of a pattern enclosed between slashes:
     const acceptedLetter = /[a-zA-Z]/;
@@ -81,7 +81,7 @@ const validate = function (input) {
     }
 };
 
-// Below the function that checks input, create a new function called makeGuess that accepts a letter as the parameter. 
+// Steps 3.9-3.12: A function to capture player input.Below the function that checks input, create a new function called makeGuess that accepts a letter as the parameter. 
 const makeGuess = function (guess) {
     // JavaScript is case sensitive, so it sees uppercase and lowercase letters as different characters. The easiest way to handle case-sensitivity is to convert all letters to one casing. We recommend converting your letter parameter to uppercase. 
     guess = guess.toUpperCase();
@@ -101,7 +101,7 @@ const makeGuess = function (guess) {
     }
 };
 
-// Create and name a function to update the page with the letters the player guesses.
+// Steps 4.1-4.3: A function to show the guessed letters.This function updates the page with letters the player guesses.
 const showGuessedLetters = function () {
     guessed.innerHTML = "";
 
@@ -112,7 +112,7 @@ const showGuessedLetters = function () {
     }
 };
 
-// Create and name a function to update the word in progress that accepts the guessedLetters array as a parameter. This function will replace the circle symbols with the correct letters guessed.
+// Steps 4.6-4.8: Create and name a function to update the word in progress that accepts the guessedLetters array as a parameter. This function replaces the circle symbols with the correct letters guessed.
 const wordInProgress = function (guessedLetters) {
     // Create a variable called wordUpper to change the word variable to uppercase. 
     const wordUpper = word.toUpperCase();
@@ -136,12 +136,13 @@ const wordInProgress = function (guessedLetters) {
     checkIfWin();
 };
 
-// Create and name a new function that will accept the guess input as a parameter. In the code, place this function before the function that checks if the player won.
+// Steps 5.2-5.5: Create and name a new function that will accept the guess input as a parameter. In the code, place this function before the function that checks if the player won.
 const updateGuessesRemaining = function (guess) {
     // In the function, grab the word and make it uppercase. Because the player’s guess is uppercase, making the word they’re guessing uppercase will compare letters with the same casing.
     const upperWord = word.toUpperCase();
-    // Find out if the word contains the guessedLetter. If it doesn’t include the letter from guess, let the player know that the word doesn’t contain the letter and subtract 1 from their remainingGuesses. 
+    // Find out if the word contains the guessedLetter. 
     if (!upperWord.includes(guess)) {
+        // If it doesn’t include the letter from guess, let the player know that the word doesn’t contain the letter and subtract 1 from their remainingGuesses. 
         message.innerText = `Sorry, the word has no ${guess}.`;
         remainingGuesses -= 1;
     } else {
@@ -165,7 +166,7 @@ const updateGuessesRemaining = function (guess) {
     }
 };
 
-// Create and name a function to check if the player successfully guessed the word and won the game. 
+// Steps 4.11-4.12: Create and name a function to check if the player successfully guessed the word and won the game. 
 const checkIfWin = function () {
     // Begin by verifying if their word in progress matches the word they should guess.
     if (word.toUpperCase() === inProgress.innerText) {
@@ -178,6 +179,7 @@ const checkIfWin = function () {
     }
 };
 
+// Steps 2.6-2.8: Add an event listener for when a player clicks the Guess button. In the callback function, add a parameter for the event: e.
 guessButton.addEventListener("click", function (e) {
     // Because we’re working with a form, we want to prevent the default behavior of clicking a button, the form submitting, and then reloading the page. To prevent this reloading behavior, add this line of code at the top of the callback function:
     e.preventDefault();
@@ -197,7 +199,7 @@ guessButton.addEventListener("click", function (e) {
     input.value = "";
 });
 
-// Add a click event listener for the Play Again button. 
+// Steps 6.4-6.7: Add a click event listener for the Play Again button. 
 playAgain.addEventListener("click", function () {
     // Remove the class of “win” applied to the message element. 
     message.classList.remove("win");
@@ -223,7 +225,7 @@ playAgain.addEventListener("click", function () {
     getWord();
 });
 
-// At the bottom of the script.js file, create a function called startOver to reset the game.
+// Steps 6.1-6.2: At the bottom of the script.js file, create a function called startOver to reset the game.
 const startOver = function () {
     // Hide the Guess button.
     guessButton.classList.add("hide");

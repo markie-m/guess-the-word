@@ -199,18 +199,15 @@ playAgain.addEventListener("click", function () {
     message.innerText = "";
     guessed.innerHTML = "";
 
-    // Set the remaining guess back to 8 or whichever number of guesses you decided on.  Set your guessedLetter global variable back to an empty array. Populate the text of the span inside the paragraph where the remaining guesses display with the new amount of guesses.
     remainingGuesses = 8;
     const guessedLetter = [];
     span.innerText = `${remainingGuesses} guesses`;
 
-    // Show the Guess button, the paragraph with remaining guesses, and the guessed letters once more. Hide the Play Again button.
     guessButton.classList.remove("hide");
     remaining.classList.remove("hide");
     guessed.classList.remove("hide");
     playAgain.classList.add("hide");
 
-    // Call the getWord() async function that pulls the new word so the player can play again!
     getWord();
 });
 
@@ -220,6 +217,5 @@ const startOver = function () {
     remaining.classList.add("hide");
     guessed.classList.add("hide");
 
-    // Use the startOver function to show the button to play again.
     playAgain.classList.remove("hide");
 }; 

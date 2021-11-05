@@ -154,6 +154,7 @@ const updateGuessesRemaining = function (guess) {
         // If they have no guesses remaining, update the message to say the game is over and what the word is. 
         message.innerHTML = `Game over. The word was <span class="highlight">${word}</span>.`;
         remaining.innerText = ``;
+        // Call the startOver function here to trigger the reset of the game upon unsuccessful completion (losing).
         startOver();
     } else if (remainingGuesses === 1) {
         // If they have 1 guess, update the span inside the paragraph where the remaining guesses will display to tell the player they have one guess remaining. 
@@ -164,13 +165,15 @@ const updateGuessesRemaining = function (guess) {
     }
 };
 
-// Create and name a function to check if the player successfully guessed the word and won the game. Begin by verifying if their word in progress matches the word they should guess.
+// Create and name a function to check if the player successfully guessed the word and won the game. 
 const checkIfWin = function () {
-    // If the player has won, add the “win” class to the empty paragraph where messages appear when they guess the letter. 
+    // Begin by verifying if their word in progress matches the word they should guess.
     if (word.toUpperCase() === inProgress.innerText) {
+        // If the player has won, add the “win” class to the empty paragraph where messages appear when they guess the letter. 
         message.classList.add("win");
         // Also, update the paragraph’s contents to:
         message.innerHTML = `<p class="highlight">You guessed correctly! The word <em>was</em> ${word}. Congrats!</p>`;
+        // Call the startOver function here to trigger the reset of the game upon successful completion (winning).
         startOver();
     }
 };
@@ -194,9 +197,11 @@ guessButton.addEventListener("click", function (e) {
     input.value = "";
 });
 
-// Add a click event listener for the Play Again button. Remove the class of “win” applied to the message element. Empty the message text and the unordered list where the guessed letters appear.
+// Add a click event listener for the Play Again button. 
 playAgain.addEventListener("click", function () {
+    // Remove the class of “win” applied to the message element. 
     message.classList.remove("win");
+    // Empty the message text and the unordered list where the guessed letters appear.
     message.innerText = "";
     guessed.innerHTML = "";
 
@@ -205,20 +210,26 @@ playAgain.addEventListener("click", function () {
     const guessedLetter = [];
     span.innerText = `${remainingGuesses} guesses`;
 
-    // Show the Guess button, the paragraph with remaining guesses, and the guessed letters once more. Hide the Play Again button.
+    // Show the Guess button again.
     guessButton.classList.remove("hide");
+    // Show the paragraph with remaining guesses again. 
     remaining.classList.remove("hide");
+    // Show the guessed letters once more. 
     guessed.classList.remove("hide");
+    // Hide the Play Again button.
     playAgain.classList.add("hide");
 
     // Call the getWord() async function that pulls the new word so the player can play again!
     getWord();
 });
 
-// At the bottom of the script.js file, create a function called startOver to hide: the Guess button, the paragraph where the remaining guesses will display, and the unordered list where the guessed letters appear. 
+// At the bottom of the script.js file, create a function called startOver to reset the game.
 const startOver = function () {
+    // Hide the Guess button.
     guessButton.classList.add("hide");
+    // Hide the paragraph where the remaining guesses will display.
     remaining.classList.add("hide");
+    // Hide the unordered list where the guessed letters appear. 
     guessed.classList.add("hide");
 
     // Use the startOver function to show the button to play again.

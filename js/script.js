@@ -110,7 +110,7 @@ const wordInProgress = function (guessedLetters) {
     }
     console.log(revealWord);
     inProgress.innerText = revealWord.join("");
-    // At the bottom of the function that updates the word in progress, call this function to check if the player has won.
+    // At the bottom of the function that updates the word in progress, call the function to check if the player has won.
     checkIfWin();
 };
 
@@ -159,7 +159,7 @@ guessButton.addEventListener("click", function (e) {
     if (result) {
         makeGuess(guess);
     }
-    // Use the console to check the input. Enter a character other than a letter into the input. Notice how the message updates on the screen!
+    
     input.value = "";
 });
 

@@ -15,9 +15,9 @@ const message = document.querySelector(".message");
 // The hidden button that will appear prompting the player to play again.
 const playAgain = document.querySelector(".play-again");
 
-// Create another global variable called word and give it the value of "magnolia". Magnolia is your starting word to test out the game until you fetch words from a hosted file in a later step.
+// Create a global variable called word and give it the value of "magnolia". Magnolia is your starting word to test out the game until you fetch words from a hosted file in a later step.
 let word = "magnolia";
-// Create another global variable called guessedLetters with an empty array. This array will contain all the letters the player guesses. 
+// Create a global variable called guessedLetters with an empty array. This array will contain all the letters the player guesses. 
 const guessedLetters = [];
 // Create a global variable called remainingGuesses and set it to a value of 8. The value 8 is the maximum number of guesses the player can make. You can decrease or increase this value to make the game harder or easier for the player! 
 let remainingGuesses = 8;

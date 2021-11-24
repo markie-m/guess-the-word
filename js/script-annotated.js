@@ -9,7 +9,7 @@ const inProgress = document.querySelector(".word-in-progress");
 // The paragraph where the remaining guesses will display.
 const remaining = document.querySelector(".remaining");
 // The span inside the paragraph where the remaining guesses will display.
-const span = document.querySelector("span");
+const span = document.querySelector(".remaining span");
 // The empty paragraph where messages will appear when the player guesses a letter.
 const message = document.querySelector(".message");
 // The hidden button that will appear prompting the player to play again.
@@ -18,7 +18,7 @@ const playAgain = document.querySelector(".play-again");
 // Create a global variable called word and give it the value of "magnolia". Magnolia is your starting word to test out the game until you fetch words from a hosted file in a later step.
 let word = "magnolia";
 // Create a global variable called guessedLetters with an empty array. This array will contain all the letters the player guesses. 
-const guessedLetters = [];
+let guessedLetters = [];
 // Create a global variable called remainingGuesses and set it to a value of 8. The value 8 is the maximum number of guesses the player can make. You can decrease or increase this value to make the game harder or easier for the player! 
 let remainingGuesses = 8;
 
@@ -43,7 +43,8 @@ const getWord = async function () {
 getWord();
 
 
-// Steps 2.4-2.5: Create and name a function to update the paragraph’s innerText for the “word-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code!
+// Steps 2.4-2.5: Create and name a function to update the paragraph’s innerText for the “word-in-progress” element with circle symbols (●) to represent each letter in the word. The symbols will stay on the screen until the correct letter is guessed (in a future step). Hint: Copy and paste the ● symbol into your code! 
+// Displays our symbols ("●") as placeholders for the chosen word's letters.
 const placeholder = function (word) {
     // I've created an empty placeholderLetters array to hold the placeholders (●) for the iterable word array.
     const placeholderLetters = [];
@@ -59,7 +60,27 @@ const placeholder = function (word) {
 // Call the function and pass it the word variable as the argument. You should see 8 circle symbols on the screen, one for each letter in the word “magnolia.” Hint: You’ll need to use an array and then join it back to a string using the .join("") method.
 // placeholder(word);
 // Take placeholder(word) from your code’s global space and place it at the bottom of getWord(). In the location the call to placeholder(word) used to be, call getWord() instead.
-getWord();
+// getWord();
+
+// Steps 2.6-2.8: Add an event listener for when a player clicks the Guess button. In the callback function, add a parameter for the event: e.
+guessButton.addEventListener("click", function (e) {
+    // Because we’re working with a form, we want to prevent the default behavior of clicking a button, the form submitting, and then reloading the page. To prevent this reloading behavior, add this line of code at the top of the callback function:
+    e.preventDefault();
+    // Inside the event handler function for the Guess button, empty the text of the message element.
+    message.innerText = "";
+    const guess = input.value;
+    console.log(guess);
+    
+    // At the bottom of the event handler, call the function you made that checks the input, and pass it the input value as an argument. Save the result of this function call to a variable and log it out to the console.
+    const result = validate(guess);
+    console.log(result);
+
+    if (result) {
+        makeGuess(guess);
+    }
+    // Use the console to check the input. Enter a character other than a letter into the input. Notice how the message updates on the screen!
+    input.value = "";
+});
 
 // Steps 3.1-3.4: Create and name a function that accepts the input value as a parameter. This function’s purpose is to validate the player’s input.
 const validate = function (input) {
@@ -179,25 +200,6 @@ const checkIfWin = function () {
     }
 };
 
-// Steps 2.6-2.8: Add an event listener for when a player clicks the Guess button. In the callback function, add a parameter for the event: e.
-guessButton.addEventListener("click", function (e) {
-    // Because we’re working with a form, we want to prevent the default behavior of clicking a button, the form submitting, and then reloading the page. To prevent this reloading behavior, add this line of code at the top of the callback function:
-    e.preventDefault();
-    // Inside the event handler function for the Guess button, empty the text of the message element.
-    message.innerText = "";
-    const guess = input.value;
-    console.log(guess);
-    
-    // At the bottom of the event handler, call the function you made that checks the input, and pass it the input value as an argument. Save the result of this function call to a variable and log it out to the console.
-    const result = validate(guess);
-    console.log(result);
-
-    if (result) {
-        makeGuess(guess);
-    }
-    // Use the console to check the input. Enter a character other than a letter into the input. Notice how the message updates on the screen!
-    input.value = "";
-});
 
 // Steps 6.4-6.7: Add a click event listener for the Play Again button. 
 playAgain.addEventListener("click", function () {

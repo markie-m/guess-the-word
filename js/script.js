@@ -9,7 +9,7 @@ const inProgress = document.querySelector(".word-in-progress");
 // The paragraph where the remaining guesses will display.
 const remaining = document.querySelector(".remaining");
 // The span inside the paragraph where the remaining guesses will display.
-const span = document.querySelector("span");
+const span = document.querySelector(".remaining span");
 // The empty paragraph where messages will appear when the player guesses a letter.
 const message = document.querySelector(".message");
 // The hidden button that will appear prompting the player to play again.
@@ -18,7 +18,7 @@ const playAgain = document.querySelector(".play-again");
 // Magnolia is your starting word to test out the game until you fetch words from a hosted file in a later step.
 let word = "magnolia";
 // The guessedLetters empty array will contain all the letters the player guesses. 
-const guessedLetters = [];
+let guessedLetters = [];
 // The value 8 is the maximum number of guesses the player can make. 
 let remainingGuesses = 8;
 
@@ -33,10 +33,11 @@ const getWord = async function () {
     word = wordArray[randomIndex].trim();
     placeholder(word);
 };
+
+// Fire off the game.
 getWord();
 
-
-// Steps 2.4-2.5: Create and name a function to update the paragraph’s innerText for the “word-in-progress” element with circle symbols (●) to represent each letter in the word. 
+// Steps 2.4-2.5: Display our symbols ("●") as placeholders for the chosen word's letters.
 const placeholder = function (word) {
     const placeholderLetters = [];
     for (const letter of word) {
@@ -47,7 +48,25 @@ const placeholder = function (word) {
 };
 // placeholder(word);
 // Take placeholder(word) from your code’s global space and place it at the bottom of getWord(). In the location the call to placeholder(word) used to be, call getWord() instead.
-getWord();
+// getWord();
+
+// Steps 2.6-2.8: An event listener for when a player clicks the Guess button. 
+guessButton.addEventListener("click", function (e) {
+    // This line of code prevents the default behavior of clicking a button, the form submitting, and then reloading the page. 
+    e.preventDefault();
+    message.innerText = "";
+    const guess = input.value;
+    // console.log(guess);
+    
+    // At the bottom of the event handler, call the function you made that checks the input, and pass it the input value as an argument. Save the result of this function call to a variable and log it out to the console.
+    const result = validate(guess);
+    // console.log(result);
+
+    if (result) {
+        makeGuess(guess);
+    }
+    input.value = "";
+});
 
 // Steps 3.1-3.4: A function to validate the player’s input.
 const validate = function (input) {
@@ -73,9 +92,8 @@ const makeGuess = function (guess) {
     } else {
         guessedLetters.push(guess);
         console.log(guessedLetters);
-        showGuessedLetters();
-    
         updateGuessesRemaining(guess);
+        showGuessedLetters();
         wordInProgress(guessedLetters);
     }
 };
@@ -108,7 +126,7 @@ const wordInProgress = function (guessedLetters) {
             revealWord.push("●");
         }
     }
-    console.log(revealWord);
+    // console.log(revealWord);
     inProgress.innerText = revealWord.join("");
     // At the bottom of the function that updates the word in progress, call the function to check if the player has won.
     checkIfWin();
@@ -126,7 +144,7 @@ const updateGuessesRemaining = function (guess) {
 
     if (remainingGuesses === 0) {
         message.innerHTML = `Game over. The word was <span class="highlight">${word}</span>.`;
-        remaining.innerText = ``;
+        // remaining.innerText = ``;
         startOver();
     } else if (remainingGuesses === 1) {
         span.innerText = `${remainingGuesses} guess`;
@@ -144,43 +162,6 @@ const checkIfWin = function () {
     }
 };
 
-// Steps 2.6-2.8: An event listener for when a player clicks the Guess button. 
-guessButton.addEventListener("click", function (e) {
-    // This line of code prevents the default behavior of clicking a button, the form submitting, and then reloading the page. 
-    e.preventDefault();
-    message.innerText = "";
-    const guess = input.value;
-    console.log(guess);
-    
-    // At the bottom of the event handler, call the function you made that checks the input, and pass it the input value as an argument. Save the result of this function call to a variable and log it out to the console.
-    const result = validate(guess);
-    console.log(result);
-
-    if (result) {
-        makeGuess(guess);
-    }
-    
-    input.value = "";
-});
-
-// Steps 6.4-6.7: A click event listener for the Play Again button. 
-playAgain.addEventListener("click", function () {
-    message.classList.remove("win");
-    message.innerText = "";
-    guessed.innerHTML = "";
-
-    remainingGuesses = 8;
-    const guessedLetter = [];
-    span.innerText = `${remainingGuesses} guesses`;
-
-    guessButton.classList.remove("hide");
-    remaining.classList.remove("hide");
-    guessed.classList.remove("hide");
-    playAgain.classList.add("hide");
-
-    getWord();
-});
-
 // Steps 6.1-6.2: A function to reset the game. 
 const startOver = function () {
     guessButton.classList.add("hide");
@@ -189,3 +170,23 @@ const startOver = function () {
 
     playAgain.classList.remove("hide");
 }; 
+
+// Steps 6.4-6.7: A click event listener for the Play Again button. 
+playAgain.addEventListener("click", function () {
+    // Reset all original values & grab new word.
+    message.classList.remove("win");
+    guessedLetters = [];
+    remainingGuesses = 8;
+    span.innerText = `${remainingGuesses} guesses`;
+    guessed.innerHTML = "";
+    message.innerText = "";
+    // Grab a new word.
+    getWord();
+    
+    // Show the right UI elements.
+    guessButton.classList.remove("hide");
+    playAgain.classList.add("hide");
+    remaining.classList.remove("hide");
+    guessed.classList.remove("hide");
+});
+
